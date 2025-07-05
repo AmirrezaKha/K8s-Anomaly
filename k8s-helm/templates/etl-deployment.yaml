@@ -15,3 +15,10 @@ spec:
       containers:
         - name: etl
           image: {{ .Values.etl.image }}
+          volumeMounts:
+            - name: data-volume
+              mountPath: /data
+      volumes:
+        - name: data-volume
+          persistentVolumeClaim:
+            claimName: shared-data-pvc

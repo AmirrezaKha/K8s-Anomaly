@@ -1,10 +1,10 @@
 etl:
-  image: ml-etl:latest
+  image: ghcr.io/YOUR_USERNAME/ml-etl:latest
 
 trainer:
-  image: ml-trainer:latest
+  image: ghcr.io/YOUR_USERNAME/ml-trainer:latest
 
 api:
-  image: ml-api:latest
+  image: ghcr.io/YOUR_USERNAME/ml-api:latest
   service:
-    port: 80
+    port: 5000

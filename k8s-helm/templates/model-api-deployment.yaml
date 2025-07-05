@@ -1,29 +1,26 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: trainer
+  name: model-api
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: trainer
+      app: model-api
   template:
     metadata:
       labels:
-        app: trainer
+        app: model-api
     spec:
       containers:
-        - name: trainer
-          image: {{ .Values.trainer.image }}
+        - name: model-api
+          image: {{ .Values.api.image }}
+          ports:
+            - containerPort: 5000
           volumeMounts:
-            - name: data-volume
-              mountPath: /data
             - name: model-volume
               mountPath: /models
       volumes:
-        - name: data-volume
-          persistentVolumeClaim:
-            claimName: shared-data-pvc
         - name: model-volume
           persistentVolumeClaim:
             claimName: model-pvc
