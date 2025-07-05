@@ -1,0 +1,17 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: trainer
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: trainer
+  template:
+    metadata:
+      labels:
+        app: trainer
+    spec:
+      containers:
+        - name: trainer
+          image: {{ .Values.etl.image }}
