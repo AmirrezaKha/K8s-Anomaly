@@ -25,17 +25,17 @@ jobs:
       - name: Build and Push ETL
         run: |
           docker build -t ghcr.io/amirrezakha/ml-etl:latest ./data-pipeline
-          docker push ghcr.io/${{ github.actor }}/ml-etl:latest
+          docker push ghcr.io/amirrezakha/ml-etl:latest
 
       - name: Build and Push Trainer
         run: |
-          docker build -t ghcr.io/${{ github.actor }}/ml-trainer:latest ./model-trainer
-          docker push ghcr.io/${{ github.actor }}/ml-trainer:latest
+          docker build -t ghcr.io/amirrezakha/ml-trainer:latest ./model-trainer
+          docker push ghcr.io/amirrezakha/ml-trainer:latest
 
       - name: Build and Push API
         run: |
-          docker build -t ghcr.io/${{ github.actor }}/ml-api:latest ./model-api
-          docker push ghcr.io/${{ github.actor }}/ml-api:latest
+          docker build -t ghcr.io/amirrezakha/ml-api:latest ./model-api
+          docker push ghcr.io/amirrezakha/ml-api:latest
 
       - name: Set up K8s
         uses: azure/setup-kubectl@v3
