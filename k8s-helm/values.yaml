@@ -1,10 +1,10 @@
 etl:
-  image: ghcr.io/amirrezakha/ml-etl:latest
+  image: ghcr.io/AmirrezaKha/ml-etl:latest
 
 trainer:
-  image: ghcr.io/amirrezakha/ml-trainer:latest
+  image: ghcr.io/AmirrezaKha/ml-trainer:latest
 
 api:
-  image: ghcr.io/amirrezakha/ml-api:latest
+  image: ghcr.io/AmirrezaKha/ml-api:latest
   service:
     port: 5000
