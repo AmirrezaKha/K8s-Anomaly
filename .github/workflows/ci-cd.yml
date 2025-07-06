@@ -37,7 +37,6 @@ jobs:
           docker build -t ghcr.io/amirrezakha/ml-api:latest ./model-api
           docker push ghcr.io/amirrezakha/ml-api:latest
 
-      # Setup Kubernetes with KIND (Kubernetes in Docker)
       - name: Set up Kind cluster
         uses: helm/kind-action@v1.8.0
 
