@@ -24,7 +24,7 @@ jobs:
 
       - name: Build and Push ETL
         run: |
-          docker build -t ghcr.io/${{ github.actor }}/ml-etl:latest ./data-pipeline
+          docker build -t ghcr.io/amirrezakha/ml-etl:latest ./data-pipeline
           docker push ghcr.io/${{ github.actor }}/ml-etl:latest
 
       - name: Build and Push Trainer
