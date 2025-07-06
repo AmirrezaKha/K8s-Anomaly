@@ -5,7 +5,7 @@ on:
     branches: [main]
 
 jobs:
-  build-and-push:
+  build-and-deploy:
     runs-on: ubuntu-latest
     permissions:
       contents: read
@@ -37,11 +37,15 @@ jobs:
           docker build -t ghcr.io/amirrezakha/ml-api:latest ./model-api
           docker push ghcr.io/amirrezakha/ml-api:latest
 
-      - name: Set up K8s
+      # Setup Kubernetes with KIND (Kubernetes in Docker)
+      - name: Set up Kind cluster
+        uses: helm/kind-action@v1.8.0
+
+      - name: Set up kubectl
         uses: azure/setup-kubectl@v3
         with:
           version: 'latest'
 
       - name: Helm Upgrade
         run: |
-          helm upgrade --install ml-pipeline ./k8s-helm --namespace default
+          helm upgrade --install ml-pipeline ./k8s-helm --namespace default --create-namespace
