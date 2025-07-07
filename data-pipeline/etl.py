@@ -6,9 +6,13 @@ def run():
     url = "https://raw.githubusercontent.com/numenta/NAB/master/data/realKnownCause/ambient_temperature_system_failure.csv"
     df = pd.read_csv(url)
 
-    os.makedirs("/data", exist_ok=True)
-    df.to_csv("/data/time_series.csv", index=False)
-    print("✅ ETL complete: /data/time_series.csv")
+    output_dir = os.path.join(os.path.dirname(__file__), "..", "data")
+    os.makedirs(output_dir, exist_ok=True)
+
+    output_file = os.path.join(output_dir, "time_series.csv")
+    df.to_csv(output_file, index=False)
+
+    print(f"✅ ETL complete: {output_file}")
 
 if __name__ == "__main__":
     run()
