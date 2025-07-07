@@ -22,6 +22,12 @@ jobs:
           registry: ghcr.io
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
+          
+      - name: Sanity check model-trainer script
+        working-directory: ./model-trainer
+        run: |
+          pip install -r requirements.txt
+          python main.py
 
       - name: Build ETL image
         run: |
