@@ -10,7 +10,7 @@ jobs:
 
     permissions:
       contents: read
-      packages: write  # <--- This is essential for GHCR push to work
+      # Removed packages: write since no pushing
 
     steps:
       - name: Checkout repo
@@ -21,22 +21,19 @@ jobs:
         with:
           registry: ghcr.io
           username: ${{ github.actor }}
-          password: ${{ secrets.GITHUB_TOKEN }}  # <--- Built-in token
+          password: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Build and Push ETL image
+      - name: Build ETL image
         run: |
           docker build -t ghcr.io/amirrezakha/ml-etl:latest ./data-pipeline
-          docker push ghcr.io/amirrezakha/ml-etl:latest
 
-      - name: Build and Push Model Trainer image
+      - name: Build Model Trainer image
         run: |
           docker build -t ghcr.io/amirrezakha/ml-trainer:latest ./model-trainer
-          docker push ghcr.io/amirrezakha/ml-trainer:latest
 
-      - name: Build and Push API image
+      - name: Build API image
         run: |
           docker build -t ghcr.io/amirrezakha/ml-api:latest ./model-api
-          docker push ghcr.io/amirrezakha/ml-api:latest
 
       - name: Set up Kind cluster
         uses: helm/kind-action@v1.8.0
