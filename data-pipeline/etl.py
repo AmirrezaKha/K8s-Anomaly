@@ -1,10 +1,14 @@
 # === data-pipeline/etl.py ===
 import pandas as pd
+import os
 
 def run():
-    df = pd.read_csv("https://raw.githubusercontent.com/uiuc-cse/data-fa14/gh-pages/data/iris.csv")
-    df.to_csv("/data/iris.csv", index=False)
-    print("ETL complete: /data/iris.csv")
+    url = "https://raw.githubusercontent.com/numenta/NAB/master/data/realKnownCause/ambient_temperature_system_failure.csv"
+    df = pd.read_csv(url)
+
+    os.makedirs("/data", exist_ok=True)
+    df.to_csv("/data/time_series.csv", index=False)
+    print("✅ ETL complete: /data/time_series.csv")
 
 if __name__ == "__main__":
     run()

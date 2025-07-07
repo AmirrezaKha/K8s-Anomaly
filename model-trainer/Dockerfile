@@ -1,5 +1,5 @@
-FROM python:3.10
+FROM python:3.10-slim
 WORKDIR /app
-COPY train.py .
-RUN pip install pandas scikit-learn
-CMD ["python", "train.py"]
+COPY . .
+RUN pip install --no-cache-dir -r requirements.txt
+CMD ["python", "main.py"]

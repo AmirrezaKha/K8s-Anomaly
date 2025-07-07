@@ -22,17 +22,17 @@ jobs:
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Build and Push ETL
+      - name: Build and Push ETL image
         run: |
-          docker build -t ghcr.io/amirrezakha/ml-etl:latest ./data-pipeline
+          docker build -t ghcr.io/amirrezakha/ml-etl:latest ./data_pipeline
           docker push ghcr.io/amirrezakha/ml-etl:latest
 
-      - name: Build and Push Trainer
+      - name: Build and Push Model Trainer image
         run: |
           docker build -t ghcr.io/amirrezakha/ml-trainer:latest ./model-trainer
           docker push ghcr.io/amirrezakha/ml-trainer:latest
 
-      - name: Build and Push API
+      - name: Build and Push API image
         run: |
           docker build -t ghcr.io/amirrezakha/ml-api:latest ./model-api
           docker push ghcr.io/amirrezakha/ml-api:latest
@@ -45,6 +45,6 @@ jobs:
         with:
           version: 'latest'
 
-      - name: Helm Upgrade
+      - name: Deploy to K8s with Helm
         run: |
           helm upgrade --install ml-pipeline ./k8s-helm --namespace default --create-namespace
