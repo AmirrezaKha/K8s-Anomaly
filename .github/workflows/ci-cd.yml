@@ -7,9 +7,10 @@ on:
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
+
     permissions:
       contents: read
-      packages: write
+      packages: write  # <--- This is essential for GHCR push to work
 
     steps:
       - name: Checkout repo
@@ -20,22 +21,22 @@ jobs:
         with:
           registry: ghcr.io
           username: ${{ github.actor }}
-          password: ${{ secrets.GITHUB_TOKEN }}
+          password: ${{ secrets.GITHUB_TOKEN }}  # <--- Built-in token
 
       - name: Build and Push ETL image
         run: |
-          docker build -t ghcr.io/amirrezakha/ml-etl:latest ./data-pipeline
-          docker push ghcr.io/amirrezakha/ml-etl:latest
+          docker build -t ghcr.io/${{ github.actor }}/ml-etl:latest ./data-pipeline
+          docker push ghcr.io/${{ github.actor }}/ml-etl:latest
 
       - name: Build and Push Model Trainer image
         run: |
-          docker build -t ghcr.io/amirrezakha/ml-trainer:latest ./model-trainer
-          docker push ghcr.io/amirrezakha/ml-trainer:latest
+          docker build -t ghcr.io/${{ github.actor }}/ml-trainer:latest ./model-trainer
+          docker push ghcr.io/${{ github.actor }}/ml-trainer:latest
 
       - name: Build and Push API image
         run: |
-          docker build -t ghcr.io/amirrezakha/ml-api:latest ./model-api
-          docker push ghcr.io/amirrezakha/ml-api:latest
+          docker build -t ghcr.io/${{ github.actor }}/ml-api:latest ./model-api
+          docker push ghcr.io/${{ github.actor }}/ml-api:latest
 
       - name: Set up Kind cluster
         uses: helm/kind-action@v1.8.0
