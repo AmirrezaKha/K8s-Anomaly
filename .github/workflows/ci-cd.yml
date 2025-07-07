@@ -24,7 +24,7 @@ jobs:
 
       - name: Build and Push ETL image
         run: |
-          docker build -t ghcr.io/amirrezakha/ml-etl:latest ./data_pipeline
+          docker build -t ghcr.io/amirrezakha/ml-etl:latest ./data-pipeline
           docker push ghcr.io/amirrezakha/ml-etl:latest
 
       - name: Build and Push Model Trainer image
